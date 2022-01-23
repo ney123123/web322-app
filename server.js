@@ -39,7 +39,7 @@ app.get('/about', function(req, res){
     
 }); 
 app.use((req, res) => {
-    res.status(404).sendFile(__dirname+"./view/404.html");
+    res.status(404).sendFile(__dirname+"/view/404.html");
   });
 
 // setup http server to listen on HTTP_PORT
