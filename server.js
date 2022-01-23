@@ -1,6 +1,6 @@
 var HTTP_PORT = process.env.PORT || 8080;
 var express = require("express");
-var blogService = require("./blog-service.js");
+var blogService = require('./blog-service.js');
 var app = express();
 console.log("Express http server listening on "+ HTTP_PORT)
 app.use(express.static('public'));
@@ -11,6 +11,7 @@ var PPosts = posts.map(function(post){
     }
 })*/
 // setup a 'route' to listen on the default url path
+app.listen(HTTP_PORT);
 app.get("/", (req, res) => {
     
     //res.send("hello!");
@@ -27,10 +28,17 @@ app.get("/categories", (req, res) => {
     
     
 });
-
+var test = {
+    "employees":[
+      {"firstName":"John", "lastName":"Doe"}, 
+      {"firstName":"Anna", "lastName":"Smith"},
+      {"firstName":"Peter", "lastName":"Jones"}
+    ]
+    }
 app.get("/posts", (req, res) => {
     
     res.send(blogService.getAllPosts());
+    //res.json(test);
     //res.send(PPosts);
     //res.sendFile(__dirname + "/data/posts.json");
 });
@@ -44,7 +52,7 @@ app.use((req, res) => {
 
 // setup http server to listen on HTTP_PORT
 
-app.listen(HTTP_PORT);
+
 
 
 /********************************************************************** * WEB322 – Assignment 1
