@@ -1,12 +1,46 @@
 var HTTP_PORT = process.env.PORT || 8080;
 var express = require("express");
+var blogService = require("./blog-service.js");
 var app = express();
+console.log("Express http server listening on "+ HTTP_PORT)
 app.use(express.static('public'));
+/*var posts = require('./data/posts.json');
+var PPosts = posts.map(function(post){
+    if (post.published == 'true'){
+    return post
+    }
+})*/
 // setup a 'route' to listen on the default url path
 app.get("/", (req, res) => {
-    res.send("Express http server listening on "+ HTTP_PORT);
-    res.redirect("/about/about.html")
+    
+    //res.send("hello!");
+    res.redirect("/about")
 });
+
+app.get("/blog", (req, res) => {
+    
+    
+    
+});
+app.get("/categories", (req, res) => {
+    
+    
+    
+});
+
+app.get("/posts", (req, res) => {
+    
+    
+    //res.send(PPosts);
+    //res.sendFile(__dirname + "/data/posts.json");
+});
+app.get('/about', function(req, res){ 
+    res.sendFile(__dirname + "/view/about.html");
+    
+}); 
+app.use((req, res) => {
+    res.status(404).sendFile(__dirname+"./view/404.html");
+  });
 
 // setup http server to listen on HTTP_PORT
 app.listen(HTTP_PORT);
