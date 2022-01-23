@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/blog", (req, res) => {
-    
+    res.send("hello!");
     
     
 });
@@ -30,7 +30,7 @@ app.get("/categories", (req, res) => {
 
 app.get("/posts", (req, res) => {
     
-    
+    res.send(blogService.getAllPosts());
     //res.send(PPosts);
     //res.sendFile(__dirname + "/data/posts.json");
 });
@@ -43,6 +43,7 @@ app.use((req, res) => {
   });
 
 // setup http server to listen on HTTP_PORT
+
 app.listen(HTTP_PORT);
 
 

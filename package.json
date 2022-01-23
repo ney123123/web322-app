@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.2",
-    "fs": "^0.0.1-security"
+    "fs": "^0.0.1-security",
+    "xml": "^1.0.1",
+    "xmlhttprequest": "^1.8.0"
   }
 }
