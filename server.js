@@ -11,7 +11,7 @@ var PPosts = posts.map(function(post){
     }
 })*/
 // setup a 'route' to listen on the default url path
-app.listen(HTTP_PORT);
+
 app.get("/", (req, res) => {
     
     //res.send("hello!");
@@ -19,27 +19,37 @@ app.get("/", (req, res) => {
 });
 
 app.get("/blog", (req, res) => {
-    res.send("hello!");
+
     
+    blogService.getPublishedPosts().then(
+        
+
+        function(value){ res.send(blogService.Pposts);},
+        function(error){res.send(error)}
+    )
     
 });
 app.get("/categories", (req, res) => {
     
+    blogService.getCategories().then(
+        
+
+        function(value){res.send(blogService.categories);},
+        function(error){res.send(error)}
+    )
     
-    
+
+
 });
-var test = {
-    "employees":[
-      {"firstName":"John", "lastName":"Doe"}, 
-      {"firstName":"Anna", "lastName":"Smith"},
-      {"firstName":"Peter", "lastName":"Jones"}
-    ]
-    }
+
+
 app.get("/posts", (req, res) => {
+   
+    blogService.getAllPosts().then(
+        function(value){ res.send(posts); },
+        function(error){res.send("posts error");}
+    )
     
-    res.send(blogService.getAllPosts());
-    //res.json(test);
-    //res.send(PPosts);
     //res.sendFile(__dirname + "/data/posts.json");
 });
 app.get('/about', function(req, res){ 
@@ -51,6 +61,10 @@ app.use((req, res) => {
   });
 
 // setup http server to listen on HTTP_PORT
+blogService.initialize().then(
+    function(value){console.log("successful loading");app.listen(HTTP_PORT);},
+    function(error){console.log("not successful loading")}
+)
 
 
 

@@ -1,8 +1,14 @@
 
 
 module.exports.posts = [];
+
+
 module.exports.Pposts = [];
+
+
 module.exports.categories = [];
+
+
 const { rejects } = require('assert');
 const fs = require('fs/promises');
 const { resolve } = require('path/posix');
@@ -14,10 +20,16 @@ module.exports.initialize = function(){
         });
 
     posts = require('./data/posts.json')
-    //console.log(posts)
-    categories = require('./data/categories.json')
+    posts.forEach(x => {if(x.published ==true){
+        this.Pposts.push(x)
+    }});
+    
+    this.categories = require('./data/categories.json');
+    var that = this
+
+
     return new Promise(function(resolve, rejects){
-            if(posts.length >0  && categories.length >0){
+            if(posts.length >0  && that.categories.length >0){
                 resolve()
             }
             else{
@@ -30,10 +42,7 @@ module.exports.initialize = function(){
 
 
 
-module.exports.initialize().then(
-    function(value){console.log("successful loading")},
-    function(error){console.log("not successful loading")}
-)
+
 
 
 
@@ -41,14 +50,14 @@ module.exports.initialize().then(
 
 
 module.exports.getAllPosts = function (){
-//console.log(posts.length)
+var that = this;
 return new Promise(function(resolve, rejects){
-    if (posts.length > 0){
+    if (this.posts.length > 0){
         resolve();
 
     }
     else{
-        rejects();
+        rejects("getAllPosts error");
     }
 
 
@@ -56,19 +65,12 @@ return new Promise(function(resolve, rejects){
 }
 
 
-module.exports.getAllPosts().then(
-    function(value){console.log(posts.length); return posts},
-    function(error){console.log("getAllPosts error")}
-)
-
-module.exports.getPublishedPosts = function (){
-    console.log(posts[1].published);
-    Ppsots = posts.reverse();
-    console.log(this.Pposts)
 
 
+module.exports.getCategories = function (){
+    var that = this;
     return new Promise(function(resolve, rejects){
-        if (Pposts.length > 0){
+        if (that.categories.length > 0){
             resolve();
     
         }
@@ -81,8 +83,27 @@ module.exports.getPublishedPosts = function (){
     }
     
     
-    module.exports.getPublishedPosts().then(
-        function(value){ return Pposts},
-        function(error){console.log("getPPosts error")}
-    )
+    
+    
+
+module.exports.getPublishedPosts = function (){
+    var that = this;
+    return new Promise(function(resolve, rejects){
+        //console.log("Pposts.length=");
+        if (that.Pposts.length > 0){
+            resolve("Successfully loading published post");
+    
+        }
+        else{
+            rejects("no results returned");
+        }
+    
+    
+    })
+    }
+    
+    
+    //module.exports.getPublishedPosts().then(
+    //    function(value){console.log(value);return this.Pposts},
+    //    function(error){this.Pposts = "getPublishedPosts error" })
     
